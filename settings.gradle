@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'hexagonal-examples'
+include 'domain'
+
