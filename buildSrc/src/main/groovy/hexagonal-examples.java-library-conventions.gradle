@@ -1,0 +1,5 @@
+plugins {
+    id 'hexagonal-examples.java-common-conventions'
+
+    id 'java-library'
+}
