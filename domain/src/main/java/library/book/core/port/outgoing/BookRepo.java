@@ -1,4 +1,4 @@
-package library.book.core.spi;
+package library.book.core.port.outgoing;
 
 import library.book.core.model.Book;
 import library.book.core.model.action.BookQueryAction;

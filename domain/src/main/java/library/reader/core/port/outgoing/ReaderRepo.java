@@ -1,4 +1,4 @@
-package library.reader.core.spi;
+package library.reader.core.port.outgoing;
 
 import library.reader.core.model.Reader;
 

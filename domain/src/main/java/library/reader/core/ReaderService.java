@@ -4,9 +4,10 @@ import library.reader.core.model.BookFilter;
 import library.reader.core.model.Reader;
 import library.reader.core.model.action.BorrowBookAction;
 import library.reader.core.model.action.ReturnBorrowedBookAction;
-import library.reader.core.service.ReaderService;
-import library.reader.core.spi.BookRepo;
-import library.reader.core.spi.ReaderRepo;
+import library.reader.core.port.incoming.BorrowBookUseCase;
+import library.reader.core.port.incoming.ReturnBookUseCase;
+import library.reader.core.port.outgoing.BookRepo;
+import library.reader.core.port.outgoing.ReaderRepo;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,12 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-public class ReaderServiceImpl implements ReaderService {
-    @Inject
+public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase {
     private BookRepo bookRepo;
 
-    @Inject
     private ReaderRepo readerRepo;
+
+    @Inject
+    public void setup(BookRepo bookRepo, ReaderRepo readerRepo) {
+        this.bookRepo = bookRepo;
+        this.readerRepo = readerRepo;
+    }
 
     @Override
     public List<Integer> borrowBook(BorrowBookAction borrowBookAction) {
