@@ -30,7 +30,7 @@ public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase, Crea
 
     @Override
     public List<Integer> borrowBook(BorrowBookAction borrowBookAction) {
-        Reader reader = readerRepo.findById(borrowBookAction.getReaderId())
+        Reader reader = readerRepo.findOne(borrowBookAction.getReaderId())
             .orElseThrow(() -> new ReaderNotFoundException(borrowBookAction.getReaderId()));
 
         BookFilter filter = BookFilter.notBorrowed();
@@ -40,13 +40,13 @@ public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase, Crea
         }
 
         reader.getBorrowedBookIds().addAll(bookIds);
-        readerRepo.save(reader);
+        readerRepo.updateBorrowedBookList(reader);
         return bookIds;
     }
 
     @Override
     public List<Integer> returnBorrowedBook(ReturnBorrowedBookAction returnBorrowedBookAction) {
-        Reader reader = readerRepo.findById(returnBorrowedBookAction.getReaderId())
+        Reader reader = readerRepo.findOne(returnBorrowedBookAction.getReaderId())
             .orElseThrow(() -> new ReaderNotFoundException(returnBorrowedBookAction.getReaderId()));
 
         BookFilter filter = BookFilter.borrowedBy(returnBorrowedBookAction.getReaderId());
@@ -56,14 +56,14 @@ public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase, Crea
         }
 
         reader.getBorrowedBookIds().removeAll(borrowedBookIds);
-        readerRepo.save(reader);
+        readerRepo.updateBorrowedBookList(reader);
         return borrowedBookIds;
     }
 
     @Override
     public Reader createReader(CreateReaderAction action) {
         String email = action.getEmail();
-        if(readerRepo.existByEmail(email)){
+        if (readerRepo.existByEmail(email)) {
             throw new ReaderExistedException();
         }
         Reader reader = new Reader();
