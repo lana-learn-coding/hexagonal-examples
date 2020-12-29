@@ -4,14 +4,15 @@ Examples of Hexagonal Architecture across various framework using with shared co
 
 
 ## Running the application in dev mode
-Running Quarkus app on Port: 8080
+Running Quarkus app
 ```shell
-./gradlew :library-quarkus:quarkusDev #running quarkus application
+./gradlew :library-quarkus:quarkusDev
 ```
-Running Srping app on Port: 8080
+Running Spring app
 ```shell
-./gradlew :library-spring:bootRun #running spring application
+./gradlew :library-spring:bootRun
 ```
+Application default port is 8080. You can access the swagger ui at [/docs/swagger](http://localhost:8080/docs/swagger)
 
 Note: Spring App can start directly from IDE by running LibraryApplication class, but Quarkus can't due to an integration
 problem of Quarkus and Gradle.

@@ -1,0 +1,42 @@
+plugins {
+    id 'hexagonal-examples.java-application-conventions'
+    id 'com.github.johnrengelman.shadow' version "5.2.0"
+}
+
+version '0.0.1-SNAPSHOT'
+
+ext {
+    vertxVersion = "4.0.0"
+    junitJupiterVersion = "5.6.0"
+
+    mainVerticleName = "com.example.libraryvertx.MainVerticle"
+    watchForChange = "src/**/*"
+    doOnChange = "${projectDir}/gradlew classes"
+    launcherClassName = "io.vertx.core.Launcher"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "io.vertx:vertx-service-proxy:$vertxVersion"
+    implementation "io.vertx:vertx-web:$vertxVersion"
+    implementation "io.vertx:vertx-pg-client:$vertxVersion"
+    implementation "io.vertx:vertx-service-proxy:$vertxVersion"
+    implementation "io.vertx:vertx-codegen:$vertxVersion"
+    implementation "org.apache.commons:commons-lang3:3.11"
+    implementation "org.apache.commons:commons-collections4:4.4"
+
+    testImplementation "io.vertx:vertx-junit5:$vertxVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitJupiterVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
