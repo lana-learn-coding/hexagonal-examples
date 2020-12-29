@@ -7,7 +7,16 @@
  * in the user manual at https://docs.gradle.org/6.7.1/userguide/multi_project_builds.html
  */
 
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
 rootProject.name = 'hexagonal-examples'
-include 'domain'
 include 'library-spring'
+include 'library-quarkus'
+include 'domain'
 
