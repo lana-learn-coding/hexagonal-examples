@@ -9,16 +9,10 @@ import lombok.experimental.Accessors;
 public class BookFilter {
     private boolean isBorrowed = true;
 
-    private Integer borrower;
-
     private BookFilter() {
     }
 
     public static BookFilter notBorrowed() {
         return new BookFilter().isBorrowed(false);
-    }
-
-    public static BookFilter borrowedBy(Integer reader) {
-        return new BookFilter().isBorrowed(false).borrower(reader);
     }
 }

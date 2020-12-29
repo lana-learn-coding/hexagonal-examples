@@ -12,5 +12,5 @@ public class ReturnBorrowedBookAction {
     private Integer readerId;
 
     @NotEmpty
-    private List<String> borrowedBookIds;
+    private List<Integer> borrowedBookIds;
 }

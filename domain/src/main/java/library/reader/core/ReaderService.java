@@ -13,7 +13,6 @@ import library.reader.core.port.outgoing.ReaderRepo;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
@@ -49,15 +48,11 @@ public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase, Crea
         Reader reader = readerRepo.findOne(returnBorrowedBookAction.getReaderId())
             .orElseThrow(() -> new ReaderNotFoundException(returnBorrowedBookAction.getReaderId()));
 
-        BookFilter filter = BookFilter.borrowedBy(returnBorrowedBookAction.getReaderId());
-        List<Integer> borrowedBookIds = bookRepo.findBookIds(filter);
-        if (borrowedBookIds.isEmpty()) {
-            return new ArrayList<>();
-        }
+        List<Integer> bookToReturns = returnBorrowedBookAction.getBorrowedBookIds();
+        reader.getBorrowedBookIds().removeAll(bookToReturns);
 
-        reader.getBorrowedBookIds().removeAll(borrowedBookIds);
         readerRepo.updateBorrowedBookList(reader);
-        return borrowedBookIds;
+        return reader.getBorrowedBookIds();
     }
 
     @Override
