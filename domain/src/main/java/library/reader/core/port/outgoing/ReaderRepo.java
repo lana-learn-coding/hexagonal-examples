@@ -8,4 +8,6 @@ public interface ReaderRepo {
     void save(Reader reader);
 
     Optional<Reader> findById(Integer id);
+
+    boolean existByEmail(String email);
 }

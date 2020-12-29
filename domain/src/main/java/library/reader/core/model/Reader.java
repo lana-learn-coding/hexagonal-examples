@@ -10,5 +10,7 @@ public class Reader {
 
     private String name;
 
+    private String email;
+
     private List<Integer> borrowedBookIds;
 }

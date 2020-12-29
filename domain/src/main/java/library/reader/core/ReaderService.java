@@ -3,8 +3,10 @@ package library.reader.core;
 import library.reader.core.model.BookFilter;
 import library.reader.core.model.Reader;
 import library.reader.core.model.action.BorrowBookAction;
+import library.reader.core.model.action.CreateReaderAction;
 import library.reader.core.model.action.ReturnBorrowedBookAction;
 import library.reader.core.port.incoming.BorrowBookUseCase;
+import library.reader.core.port.incoming.CreateReaderUseCase;
 import library.reader.core.port.incoming.ReturnBookUseCase;
 import library.reader.core.port.outgoing.BookRepo;
 import library.reader.core.port.outgoing.ReaderRepo;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase {
+public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase, CreateReaderUseCase {
     private BookRepo bookRepo;
 
     private ReaderRepo readerRepo;
@@ -56,5 +58,18 @@ public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase {
         reader.getBorrowedBookIds().removeAll(borrowedBookIds);
         readerRepo.save(reader);
         return borrowedBookIds;
+    }
+
+    @Override
+    public Reader createReader(CreateReaderAction action) {
+        String email = action.getEmail();
+        if(readerRepo.existByEmail(email)){
+            throw new ReaderExistedException();
+        }
+        Reader reader = new Reader();
+        reader.setEmail(email);
+        reader.setName(action.getName());
+        readerRepo.save(reader);
+        return reader;
     }
 }
