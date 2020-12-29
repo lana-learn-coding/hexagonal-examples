@@ -1,7 +1,6 @@
 plugins {
     id 'hexagonal-examples.java-application-conventions'
     id 'io.quarkus' version "${quarkusPluginVersion}"
-    id 'org.kordamp.gradle.jandex' version '0.6.0'
 }
 
 repositories {
