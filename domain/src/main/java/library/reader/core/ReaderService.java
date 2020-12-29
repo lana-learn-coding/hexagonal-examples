@@ -32,7 +32,7 @@ public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase, Crea
         Reader reader = readerRepo.findOne(borrowBookAction.getReaderId())
             .orElseThrow(() -> new ReaderNotFoundException(borrowBookAction.getReaderId()));
 
-        BookFilter filter = BookFilter.notBorrowed();
+        BookFilter filter = BookFilter.notBorrowed().bookIds(borrowBookAction.getBookToBorrowIds());
         List<Integer> bookIds = bookRepo.findBookIds(filter);
         if (!borrowBookAction.isIgnoreBorrowedBook() && bookIds.size() < borrowBookAction.getBookToBorrowIds().size()) {
             throw new BookAlreadyBorrowedException();
