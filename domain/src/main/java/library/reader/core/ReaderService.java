@@ -11,18 +11,14 @@ import library.reader.core.port.incoming.ReturnBookUseCase;
 import library.reader.core.port.outgoing.BookRepo;
 import library.reader.core.port.outgoing.ReaderRepo;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 
-@Singleton
 public class ReaderService implements BorrowBookUseCase, ReturnBookUseCase, CreateReaderUseCase {
-    private BookRepo bookRepo;
+    private final BookRepo bookRepo;
 
-    private ReaderRepo readerRepo;
+    private final ReaderRepo readerRepo;
 
-    @Inject
-    public void setup(BookRepo bookRepo, ReaderRepo readerRepo) {
+    public ReaderService(BookRepo bookRepo, ReaderRepo readerRepo) {
         this.bookRepo = bookRepo;
         this.readerRepo = readerRepo;
     }

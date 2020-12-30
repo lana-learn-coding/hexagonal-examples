@@ -3,20 +3,16 @@ package library.book.core;
 import library.book.core.model.Book;
 import library.book.core.model.action.CreateBookAction;
 import library.book.core.model.action.QueryBookAction;
-import library.book.core.port.outgoing.BookRepo;
 import library.book.core.port.incoming.CreateBookUseCase;
 import library.book.core.port.incoming.QueryBookUseCase;
+import library.book.core.port.outgoing.BookRepo;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 
-@Singleton
 public class BookService implements CreateBookUseCase, QueryBookUseCase {
-    private BookRepo bookRepo;
+    private final BookRepo bookRepo;
 
-    @Inject
-    public void setup(BookRepo bookRepo){
+    public BookService(BookRepo bookRepo) {
         this.bookRepo = bookRepo;
     }
 
