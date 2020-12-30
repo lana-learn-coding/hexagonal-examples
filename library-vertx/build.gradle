@@ -25,6 +25,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':domain')
     implementation "io.vertx:vertx-service-proxy:$vertxVersion"
     implementation "io.vertx:vertx-web:$vertxVersion"
     implementation "io.vertx:vertx-pg-client:$vertxVersion"

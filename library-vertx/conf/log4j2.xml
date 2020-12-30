@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="warn" packages="vn.eway">
+    <Properties>
+        <Property name="LOG_DIR">logs</Property>
+        <Property name="ALL_FILE">detail.log</Property>
+        <Property name="ERROR_FILE">error.log</Property>
+        <Property name="METRICS_FILE">access.log</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="console-appender" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%-5p][%t] %l - %m%n"/>
+        </Console>
+
+        <RandomAccessFile name="all-appender" fileName="${LOG_DIR}/${date:yyyy-MM-dd}/${ALL_FILE}"
+                          immediateFlush="false" append="true">
+            <PatternLayout pattern="%d %p %class{1.} [%t] %location %m %ex%n"/>
+        </RandomAccessFile>
+
+        <RandomAccessFile name="error-appender"
+                          fileName="${LOG_DIR}/${date:yyyy-MM-dd}/${ERROR_FILE}">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%-5p][%t] %l - %m%n"/>
+        </RandomAccessFile>
+
+        <RandomAccessFile name="access-appender"
+                          fileName="${LOG_DIR}/${date:yyyy-MM-dd}/${METRICS_FILE}">
+            <PatternLayout pattern="%m%n"/>
+        </RandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <AsyncLogger name="access-log" level="info" additivity="false">
+            <AppenderRef ref="console-appender"/>
+        </AsyncLogger>
+
+        <AsyncRoot level="info">
+            <AppenderRef ref="console-appender"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

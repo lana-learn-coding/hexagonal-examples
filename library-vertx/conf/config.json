@@ -1,0 +1,13 @@
+{
+  "http.port": 1288,
+  "database": {
+    "postgres": {
+      "uri": "postgresql://postgres:123456@127.0.0.1:5432/test"
+    }
+  },
+  "instance": {
+    "http": 15,
+    "postgres": 5
+  },
+  "swagger.enable": true
+}
